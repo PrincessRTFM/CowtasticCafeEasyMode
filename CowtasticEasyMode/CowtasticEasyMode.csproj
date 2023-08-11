@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Product>CowtasticCafeEasyMode</Product>
+		<Version>1.0.0</Version>
+		<Description>A cheat mod for the fun Cowtast Cafe indie unity game</Description>
+		<Copyright>Copyleft VariableVixen 2023</Copyright>
+		<TargetFramework>net4.0</TargetFramework>
+		<Platforms>AnyCPU;x86</Platforms>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<AssemblyName>EasyMode</AssemblyName>
+	</PropertyGroup>
+
+	<Import Project="framework.props" />
+	
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputPath>bin\$(Configuration)\EasyMode</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="HarmonyX" Version="2.10.1" />
+		<PackageReference Include="Kajabity.Tools.Java" Version="0.3.7879.40798" />
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Game">
+			<HintPath>..\lib\Game.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+		  <HintPath>..\lib\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+		  <HintPath>..\lib\UnityEngine.IMGUIModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+		  <HintPath>..\lib\UnityEngine.InputLegacyModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreTextEngineModule">
+		  <HintPath>..\lib\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+		  <HintPath>..\lib\UnityEngine.TextRenderingModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+		  <HintPath>..\lib\UnityEngine.UI.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsModule">
+		  <HintPath>..\lib\UnityEngine.UIElementsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+		  <HintPath>..\lib\UnityEngine.UIModule.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<Target Name="CopyRuntimeLibs" AfterTargets="PostBuildEvent">
+		<ItemGroup>
+			<RuntimeLibs Include="..\lib\unstripped\*.dll" />
+		</ItemGroup>
+		<Copy SourceFiles="@(RuntimeLibs)" DestinationFolder="$(TargetDir)" />
+	</Target>
+	<Target Name="CopyDoorstop" AfterTargets="PostBuildEvent">
+		<ItemGroup>
+			<InjectorFiles Include="..\lib\doorstop\$(Configuration)\*.*" />
+		</ItemGroup>
+		<Copy SourceFiles="@(InjectorFiles)" DestinationFolder="$(TargetDir)\.." />
+	</Target>
+
+</Project>

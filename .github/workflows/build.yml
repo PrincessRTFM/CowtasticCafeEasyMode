@@ -1,0 +1,118 @@
+name: Build
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+      # Just in case I ever change the branch name or something
+      - main
+      - release
+  pull_request:
+    branches:
+      - master
+      - main
+      - release
+
+env:
+  SOLUTION_NAME: CowtasticEasyMode
+  PROJECT_FILE: CowtasticEasyMode/CowtasticEasyMode.csproj
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    runs-on: windows-2022
+    env: # CANNOT use env.SOLUTION_NAME here, github doesn't recognise it :/
+      OUTPUT_DIR: CowtasticEasyMode\bin\${{ matrix.configuration }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+    # Install the .NET Core workload
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6'
+    # Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Build
+      run: dotnet build ${{ env.SOLUTION_NAME }}.sln --configuration ${{ matrix.configuration }}
+    - name: Zip output
+      uses: thedoctor0/zip-release@main
+      with:
+        type: zip
+        filename: ${{ matrix.configuration }}.zip
+        directory: ${{ env.OUTPUT_DIR }}
+        path: "*"
+        exclusions: "*.zip"
+    - name: Upload build
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.configuration }}
+        path: ${{ env.OUTPUT_DIR }}\${{ matrix.configuration }}.zip
+        if-no-files-found: error
+        retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Retrieve debug build
+      id: download-debug
+      uses: actions/download-artifact@v3
+      with:
+        name: Debug
+        path: .
+    - name: Retrieve release build
+      id: download-release
+      uses: actions/download-artifact@v3
+      with:
+        name: Release
+        path: .
+    - name: Debug output
+      run: |
+        echo "Base directory:"
+        ls -1HQ --file-type --group-directories-first
+        echo
+        echo "Debug artifact:"
+        ls -1HQR --file-type --group-directories-first ${{steps.download-debug.outputs.download-path}}
+        echo
+        echo "Release artifact:"
+        ls -1HQR --file-type --group-directories-first ${{steps.download-release.outputs.download-path}}
+      shell: bash
+    - name: Extract version
+      id: data
+      run: |
+        buildVersion=$(grep -Ei '<version>[^<]+</version>' "${{ env.PROJECT_FILE }}" | sed -e 's/.\+<version>\([^<]\+\)<.\+/\1/i' -)
+        echo "BUILD_VER=$buildVersion" >> $GITHUB_ENV
+        echo "TAG_NAME=v$buildVersion" >> $GITHUB_ENV
+      shell: bash
+    - name: Tag commit
+      run: |
+        git tag -am "[Automated build ${{ env.BUILD_VER }}]" "${{ env.TAG_NAME }}" ${{ env.GITHUB_SHA }}
+        git push origin "${{ env.TAG_NAME }}"
+      shell: bash
+      env:
+        GIT_AUTHOR_NAME: GitHub Action
+        GIT_COMMITTER_NAME: GitHub Action
+        GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+        GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+    - name: Make public release
+      uses: ncipollo/release-action@v1
+      with:
+        artifactErrorsFailBuild: true
+        artifacts: "${{steps.download-debug.outputs.download-path}}/Debug.zip,${{steps.download-release.outputs.download-path}}/Release.zip"
+        bodyFile: INSTRUCTIONS.md
+        commit: ${{ env.GITHUB_SHA }}
+        name: ${{ env.TAG_NAME }}
+        tag: ${{ env.TAG_NAME }}

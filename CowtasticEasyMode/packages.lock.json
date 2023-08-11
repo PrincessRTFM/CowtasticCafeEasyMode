@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "dependencies": {
+    ".NETFramework,Version=v4.0": {
+      "HarmonyX": {
+        "type": "Direct",
+        "requested": "[2.10.1, )",
+        "resolved": "2.10.1",
+        "contentHash": "9LodMC9Y0u1TW96eKJoWrFJFpmzbgojEO38/Q+e7c1mFPhmHt8xcR8qhI06iF1rf0Dnsk+hqENFVSgbtwl/bEw==",
+        "dependencies": {
+          "MonoMod.RuntimeDetour": "22.3.23.4"
+        }
+      },
+      "Kajabity.Tools.Java": {
+        "type": "Direct",
+        "requested": "[0.3.7879.40798, )",
+        "resolved": "0.3.7879.40798",
+        "contentHash": "q5qqTuZg60eyDADVzdy7nmMYkzbO9AlHqylmOoUJDY2HP9vcDnl8X/2lz6Av6QYXCApF5HfedcnMZ39ZlE1gvA=="
+      },
+      "Microsoft.NETFramework.ReferenceAssemblies": {
+        "type": "Direct",
+        "requested": "[1.0.3, )",
+        "resolved": "1.0.3",
+        "contentHash": "vUc9Npcs14QsyOD01tnv/m8sQUnGTGOw1BCmKcv77LBJY7OxhJ+zJF7UD/sCL3lYNFuqmQEVlkfS4Quif6FyYg==",
+        "dependencies": {
+          "Microsoft.NETFramework.ReferenceAssemblies.net40": "1.0.3"
+        }
+      },
+      "Microsoft.NETFramework.ReferenceAssemblies.net40": {
+        "type": "Transitive",
+        "resolved": "1.0.3",
+        "contentHash": "3ctXnCpHdoYJNH9ATfXKwckkkdHvHc1Xls12QB9kf1tjh3b+VzxtiwpkZN4GxOawakfH6CJAkqhlDKSiz6Ujbg=="
+      },
+      "Mono.Cecil": {
+        "type": "Transitive",
+        "resolved": "0.10.4",
+        "contentHash": "BHukPf7zfXu+akTcFEAWvU4x3hVMMIDC+ihGAl/+8OozrY0f/ajrpuaSUf2Q3Xvgsge5NryvOkjtyhV5TNXoSg=="
+      },
+      "MonoMod.RuntimeDetour": {
+        "type": "Transitive",
+        "resolved": "22.3.23.4",
+        "contentHash": "2nwwFfwYDSgUzhi+1MutTg1gyUgXoMS4+E04vHOFp84Vxs0oBkkn4mGAfhkr272y0j3vqIBzo2aT9pXRlCd/ZA==",
+        "dependencies": {
+          "Mono.Cecil": "0.10.4",
+          "MonoMod.Utils": "22.3.23.4"
+        }
+      },
+      "MonoMod.Utils": {
+        "type": "Transitive",
+        "resolved": "22.3.23.4",
+        "contentHash": "xso1rHFfcsPy3X1kj2uDk115z9tLTMxPEnba/zdNB6WazvrLRWGPuV9d4hHwr1iVz5quTFlZCbLBlE5fS2TqLA==",
+        "dependencies": {
+          "Mono.Cecil": "0.10.4"
+        }
+      }
+    }
+  }
+}
