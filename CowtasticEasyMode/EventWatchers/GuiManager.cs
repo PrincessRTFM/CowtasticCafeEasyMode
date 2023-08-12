@@ -9,7 +9,7 @@ using UnityEngine;
 internal class GuiManager: MonoBehaviour {
 	public const int
 		OverlayWidth = 300,
-		OverlayBottomEdge = 200,
+		OverlayBottomEdge = 140,
 		HeaderFontSize = 20,
 		BodyFontSize = 14;
 
