@@ -1,4 +1,4 @@
-CCEM is an "easy mode" mod for the (very NSFW) indie unity game [_Cowtastic Cafe_](https://noa3.itch.io/cowtastic). Installation is extremely simple - [download the latest build]((https://github.com/PrincessRTFM/CowtasticCafeEasyMode/releases/latest/download/Release.zip)), unzip it into the game's folder, and just launch the game.
+CCEM is an "easy mode" mod for the (very NSFW) indie unity game [_Cowtastic Cafe_](https://noa3.itch.io/cowtastic). Installation is extremely simple - [download the latest build](https://github.com/PrincessRTFM/CowtasticCafeEasyMode/releases/latest), unzip it into the game's folder, and just launch the game.
 
 All features are controlled via hotkeys, with both the on/off status and keybind displayed in the lower right corner. Settings are saved in `EasyMode.properties` to persist between game launches. Please note that this display was designed for a 1920x1080 game window (fullscreen on such a monitor) and may look off on other resolutions. Current features include:
 
