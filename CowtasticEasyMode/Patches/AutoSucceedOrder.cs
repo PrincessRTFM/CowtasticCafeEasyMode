@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 
 using HarmonyLib;
 
@@ -13,15 +14,16 @@ using UnityEngine;
 internal class AutoSucceedOrder {
 	private const BindingFlags anyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-	[HarmonyPostfix]
-	[HarmonyPatch(nameof(OrderManager.StartOrder))]
-	public static void AutoFillCupWithOrder(OrderManager __instance, CupController ___cupController) {
-		if (!Config.AutoFillCup)
-			return;
-
-		CupController cup = ___cupController;
-		Customers order = __instance.ActiveCustomer;
-		List<float> fills = __instance.ActiveIngreedentPercentages;
+	[HotkeyTrigger("Instafill order", KeyCode.Space)]
+	internal static void fillCupWithOrder() {
+		OrderManager manager = OrderManager.instance;
+		if (manager is null) return;
+		CupController cup = CupController.instance;
+		if (cup is null) return;
+		Customers order = manager.ActiveCustomer;
+		if (order is null) return;
+		List<float> fills = manager.ActiveIngreedentPercentages;
+		if (fills is null) return;
 		foreach (Toppings want in order.Toppings) {
 			switch (want) {
 				case Toppings.Ice:
@@ -65,7 +67,16 @@ internal class AutoSucceedOrder {
 		cup.Coffee = Mathf.Clamp01(fills[6] / 100);
 		cup.BreastMilk = Mathf.Clamp01(fills[13] / 100);
 		cup.Fullness = 1f;
-		Log.Debug($"Autofilled cup with {cup.Chocolate:F2}chocolate, {cup.Milk:F2}milk, {cup.Tea:F2}tea, {cup.Cream:F2}cream, {cup.Espresso:F2}coffee, {cup.Sugar:F2}sugar, {cup.BreastMilk:F2}breastmilk");
+		Log.Debug($"Filled cup with {cup.Chocolate:F2}chocolate, {cup.Milk:F2}milk, {cup.Tea:F2}tea, {cup.Cream:F2}cream, {cup.Espresso:F2}coffee, {cup.Sugar:F2}sugar, {cup.BreastMilk:F2}breastmilk");
+	}
+
+	[HarmonyPostfix]
+	[HarmonyPatch(nameof(OrderManager.StartOrder))]
+	public static void AutomaticallyFillCupWithOrder() {
+		if (!Config.AutoFillCup)
+			return;
+
+		fillCupWithOrder();
 	}
 
 	[HarmonyPostfix]

@@ -12,7 +12,9 @@ CCEM is an "easy mode" mod for the (very NSFW) indie unity game [_Cowtastic Cafe
 
 ## Usage
 
-All features are controlled via hotkeys, with both the on/off status and keybind displayed in the lower right corner. Please note that this display was designed for a 1920x1080 game window (fullscreen on such a monitor) and may look off on other resolutions. Some features support multiple keybinds, but only one (the key that's unique to that feature, first one listed) is displayed in the overlay. Settings are saved in `EasyMode.properties` to persist between game launches.
+All features are controlled via hotkeys, with the keybind displayed in the lower right corner. Please note that this display was designed for a 1920x1080 game window (fullscreen on such a monitor) and may look off on other resolutions. Some features support multiple keybinds, but only one (the key that's unique to that feature, first one listed) is displayed in the overlay. Most features are automatic and will be toggled by their hotkey; these will display their on/off status in the overlay. Settings are saved in `EasyMode.properties` to persist between game launches.
+
+### Toggle settings
 
 - \[`P`, `H`\] prevent happiness from falling below 5% (so you can't lose, but still need to try and keep it up manually)
 - \[`L`, `H`\] lock happiness at 100% (if you just don't want to deal with it)
@@ -24,12 +26,18 @@ All features are controlled via hotkeys, with both the on/off status and keybind
 - \[`F`\] autofill cup when customer orders (cup will start with the exact order, ONLY applies when an order is STARTED)
 - \[`/`, `?`\] status overlay in the lower right corner to display what features are enabled and what hotkeys you can use to toggle them
 
-**NOTE**: all keybinds _toggle_ the settings they connect to! This means that if you use `H` while happiness-lock-at-cap is enabled and happiness-minimum-threshold is disabled, you will end up with them flipped around, _not_ with both enabled/disabled.
+#### IMPORTANT NOTE
+
+The above keybinds toggle _all_ of the settings they connect to! This means that if you use `H` while happiness-lock-at-cap is enabled and happiness-minimum-threshold is disabled, you will end up with them flipped around, _not_ with both enabled/disabled.
+
+### Immediate actions
+
+- \[`[space]`\] immediately fill the current cup with the desired order
 
 ## Tips
 
 - the "lock happiness at cap" feature actually sets happiness to 100% and just repeats that every frame, so you can turn it on and then back off to just get an instant boost to full and then allow it to decay as normal
-- autofill cup only works when the order is started, but perfect ratings has no such limit, so if you suddenly get an order too complicated to fill in time, you can just turn perfect ratings on and serve anything - even nothing but 1% coffee!
+- autofill cup only works when the order is started ~~but perfect ratings has no such limit, so if you suddenly get an order too complicated to fill in time, you can just turn perfect ratings on and serve anything - even nothing but 1% coffee!~~ but you can now use the space bar to complete your _current_ order without affecting the next one!
 - the status overlay is unrelated to the rest of the features and their hotkeys; if you want to leave it hidden, you can, and everything else will continue to work - INCLUDING hotkeys toggling other features
 - since all features can be disabled, you don't actually need to completely disable CCEM if you want to play a vanilla run
 
@@ -40,3 +48,7 @@ It is _technically_ safe to update the game without updating CCEM, since CCEM do
 ## Bugs
 
 There are no bugs currently known. If you encounter any issues, please [open a report on the tracker](https://github.com/PrincessRTFM/CowtasticCafeEasyMode/issues/new) (including your `EasyMode.log` file!) and I'll see what I can do. If you have a feature request, you can open an issue to tell me about it.
+
+## Plans
+
+I'd like the make the overlay in the bottom right corner look a little less awful, because it's pretty bad right now. Plain white text, plus it overlaps buttons in the main menu... not to mention it definitely won't look right on other resolutions. Ideally, I'd like to make it detect the button(s) in that corner and adjust to place itself right above them.

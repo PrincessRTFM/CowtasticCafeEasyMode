@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<Product>CowtasticCafeEasyMode</Product>
-		<Version>1.0.1</Version>
+		<Version>1.1.0</Version>
 		<Description>A cheat mod for the fun Cowtast Cafe indie unity game</Description>
 		<Copyright>Copyleft VariableVixen 2023</Copyright>
 		<TargetFramework>net4.0</TargetFramework>
