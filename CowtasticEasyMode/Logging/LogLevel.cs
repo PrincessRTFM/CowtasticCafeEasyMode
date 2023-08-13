@@ -1,4 +1,4 @@
-﻿namespace PrincessRTFM.CowtasticCafeEasyMode.Logging;
+namespace PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 public enum LogLevel: byte {
 	TRACE = 0,

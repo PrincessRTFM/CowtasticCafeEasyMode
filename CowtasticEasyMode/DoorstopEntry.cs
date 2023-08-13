@@ -1,4 +1,4 @@
-﻿namespace Doorstop;
+namespace Doorstop;
 
 using PrincessRTFM.CowtasticCafeEasyMode;
 

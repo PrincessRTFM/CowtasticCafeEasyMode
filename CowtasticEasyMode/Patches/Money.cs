@@ -1,4 +1,4 @@
-﻿namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
+namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
 
 using System.Diagnostics.CodeAnalysis;
 

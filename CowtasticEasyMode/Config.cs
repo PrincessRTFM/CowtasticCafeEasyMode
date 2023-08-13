@@ -1,4 +1,4 @@
-﻿namespace PrincessRTFM.CowtasticCafeEasyMode;
+namespace PrincessRTFM.CowtasticCafeEasyMode;
 
 using System.Collections.Generic;
 using System.IO;

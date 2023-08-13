@@ -1,4 +1,4 @@
-﻿namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
+namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
 
 using System;
 using System.Collections.Generic;
