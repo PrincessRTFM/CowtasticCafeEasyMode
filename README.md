@@ -33,6 +33,8 @@ The above keybinds toggle _all_ of the settings they connect to! This means that
 ### Immediate actions
 
 - \[`[space]`\] immediately fill the current cup with the desired order
+- \[`[PageUp]`\] add $10
+- \[`[PageDown]`\] remove $10 (will not go negative)
 
 ## Tips
 
