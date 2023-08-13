@@ -27,20 +27,22 @@ public static class Core {
 
 	public static void Launch() => AppDomain.CurrentDomain.AssemblyLoad += onAssemblyLoad;
 
-	public static string DescribeMethod(MethodBase method) {
+	public static string DescribeMethod(MethodBase method, bool includeReturn = true) {
 		ParameterInfo[] allParams = method.GetParameters();
 		string retval = allParams
 			.Where(p => (p.Attributes & ParameterAttributes.Retval) == ParameterAttributes.Retval)
 			.FirstOrDefault()
 			?.ParameterType
 			?.Name
-			?? "void";
+			?? (method as MethodInfo)?.ReturnType?.Name
+			?? "<unknown>";
 		string[] args = allParams
 			.Where(p => (p.Attributes & ParameterAttributes.Retval) == 0)
 			.OrderBy(p => p.Position)
 			.Select(p => p.ParameterType.Name)
 			.ToArray();
-		return $"{retval} {method.DeclaringType.Name}.{method.Name}({string.Join(", ", args)})";
+		string label = $"{method.DeclaringType.Name}.{method.Name}({string.Join(", ", args)})";
+		return includeReturn ? $"{retval} {label}" : label;
 	}
 
 	private static void init() {

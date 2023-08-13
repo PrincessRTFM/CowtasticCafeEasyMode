@@ -1,10 +1,8 @@
 ﻿namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
 
-using System;
 using System.Linq;
 
 using PrincessRTFM.CowtasticCafeEasyMode;
-using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
 
@@ -21,7 +19,7 @@ internal class GuiManager: MonoBehaviour {
 	private static GUIStyle bodyStyle = null!;
 	private static GUIContent headerContent = null!;
 
-	private static string[] actionKeybinds = new string[0];
+	private static readonly string[] actionKeybinds = new string[0];
 	private static GUIContent bodyContent => new(string.Join("\n", Config.settings
 		.Where(pair => pair.Value.ToggleKeys.Length > 0)
 		.OrderBy(pair => pair.Value.Key)

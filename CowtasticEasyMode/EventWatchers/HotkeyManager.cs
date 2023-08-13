@@ -1,5 +1,6 @@
 ﻿namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,12 +17,14 @@ public class HotkeyManager: MonoBehaviour {
 
 	public static HotkeyManager Instance { get; private set; } = null!;
 	public void Awake() {
+		MethodInfo handler = typeof(KeybindHandler).GetMethod("Invoke");
+		Type tReturn = handler.ReturnType;
+		ParameterInfo[] tArgs = handler.GetParameters();
 		MethodInfo[] triggers = Assembly
 			.GetExecutingAssembly()
 			.GetTypes()
 			.SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
-			.Where(m => m.ReturnType == typeof(void) && m.GetParameters().Length == 0)
-			.Where(m => m.GetCustomAttribute<HotkeyTriggerAttribute>() is not null)
+			.Where(HotkeyAction.IsValid)
 			.ToArray();
 		Log.Debug($"Registering {triggers.Length} hotkey-bound action trigger{(triggers.Length == 1 ? "" : "s")}");
 		foreach (MethodInfo method in triggers) {
@@ -66,7 +69,7 @@ public class HotkeyManager: MonoBehaviour {
 			if (Input.GetKeyDown(bindings.Key)) {
 				foreach (HotkeyAction func in bindings.Value) {
 					Log.Debug($"Invoking [{func.Label}] via {func.Descriptor}()");
-					func.Invoke();
+					func.Invoke(bindings.Key);
 				}
 			}
 		}

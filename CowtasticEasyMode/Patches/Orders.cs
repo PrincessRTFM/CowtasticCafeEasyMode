@@ -1,8 +1,8 @@
 ﻿namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 
 using HarmonyLib;
 
@@ -11,19 +11,32 @@ using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 using UnityEngine;
 
 [HarmonyPatch(typeof(OrderManager))]
-internal class AutoSucceedOrder {
+internal class Orders {
 	private const BindingFlags anyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
 	[HotkeyTrigger("Instafill order", KeyCode.Space)]
-	internal static void fillCupWithOrder() {
+	[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "delegate conformation")]
+	internal static void fillCupWithOrder(KeyCode trigger = KeyCode.None) {
 		OrderManager manager = OrderManager.instance;
-		if (manager is null) return;
+		if (manager is null) {
+			Log.Error($"Cannot autofill order, OrderManager instance is null");
+			return;
+		}
 		CupController cup = CupController.instance;
-		if (cup is null) return;
+		if (cup is null) {
+			Log.Error($"Cannot autofill order, CupController instance is null");
+			return;
+		}
 		Customers order = manager.ActiveCustomer;
-		if (order is null) return;
+		if (order is null) {
+			Log.Error($"Cannot autofill order, active customer is null");
+			return;
+		}
 		List<float> fills = manager.ActiveIngreedentPercentages;
-		if (fills is null) return;
+		if (fills is null) {
+			Log.Error($"Cannot autofill order, active order ingredient percentage list is null");
+			return;
+		}
 		foreach (Toppings want in order.Toppings) {
 			switch (want) {
 				case Toppings.Ice:

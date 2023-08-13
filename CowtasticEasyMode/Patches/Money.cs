@@ -1,5 +1,7 @@
 ﻿namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
 
+using System.Diagnostics.CodeAnalysis;
+
 using HarmonyLib;
 
 using PrincessRTFM.CowtasticCafeEasyMode.Logging;
@@ -9,13 +11,15 @@ using UnityEngine;
 [HarmonyPatch]
 internal class Money {
 	[HotkeyTrigger("Remove $10", KeyCode.PageDown)]
-	public static void RemoveMoney() {
+	[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "delegate conformation")]
+	public static void RemoveMoney(KeyCode trigger) {
 		float amount = Mathf.Min(10, BaseGameMode.instance.Money);
 		BaseGameMode.instance.Money -= amount;
 		Log.Info($"Removed ${amount} (now at ${BaseGameMode.instance.Money})");
 	}
 	[HotkeyTrigger("Add $10", KeyCode.PageUp)]
-	public static void AddMoney() {
+	[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "delegate conformation")]
+	public static void AddMoney(KeyCode trigger) {
 		BaseGameMode.instance.Money += 10;
 		Log.Info($"Added $10 (now at ${BaseGameMode.instance.Money})");
 	}
