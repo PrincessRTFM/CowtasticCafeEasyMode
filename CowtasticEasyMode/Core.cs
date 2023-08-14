@@ -1,6 +1,7 @@
 namespace PrincessRTFM.CowtasticCafeEasyMode;
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +16,8 @@ using UnityEngine;
 
 public static class Core {
 	public static string Module { get; } = Assembly.GetExecutingAssembly().GetName().Name;
+	public static string Version { get; } = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+
 	public static string LogPath { get; } = Path.Combine(Environment.CurrentDirectory, $"{Module}.log");
 	public static string ConfigPath { get; } = Path.Combine(Environment.CurrentDirectory, $"{Module}.properties");
 

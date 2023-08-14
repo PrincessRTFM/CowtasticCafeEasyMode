@@ -19,7 +19,6 @@ internal class GuiManager: MonoBehaviour {
 	private static GUIStyle bodyStyle = null!;
 	private static GUIContent headerContent = null!;
 
-	private static readonly string[] actionKeybinds = new string[0];
 	private static GUIContent bodyContent => new(string.Join("\n", Config.settings
 		.Where(pair => pair.Value.ToggleKeys.Length > 0)
 		.OrderBy(pair => pair.Value.Key)
@@ -53,7 +52,7 @@ internal class GuiManager: MonoBehaviour {
 		bodyStyle.border.left = 1;
 		bodyStyle.normal.textColor = Color.white;
 
-		headerContent = new($"{Core.Module} Status");
+		headerContent = new($"{Core.Module} v{Core.Version} Status");
 
 		Instance = this;
 	}
