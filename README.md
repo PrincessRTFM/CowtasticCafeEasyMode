@@ -49,7 +49,7 @@ It is _technically_ safe to update the game without updating CCEM, since CCEM do
 
 ## Bugs
 
-There are no bugs currently known. If you encounter any issues, please [open a report on the tracker](https://github.com/PrincessRTFM/CowtasticCafeEasyMode/issues/new) (including your `EasyMode.log` file!) and I'll see what I can do. If you have a feature request, you can open an issue to tell me about it.
+There are no bugs currently known. If you encounter any issues, please [open a report on the tracker](https://github.com/PrincessRTFM/CowtasticCafeEasyMode/issues/new/choose) (including your `EasyMode.log` file!) and I'll see what I can do. If you have a feature request, you can open an issue to tell me about it.
 
 ## Plans
 
