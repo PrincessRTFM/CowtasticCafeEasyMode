@@ -1,4 +1,4 @@
-﻿#if DEBUG
+#if DEBUG
 #if TRACE
 #define TRACEDEBUG
 #endif
