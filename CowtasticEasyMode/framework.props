@@ -41,8 +41,8 @@
 	-->
 
 	<PropertyGroup Condition=" '$(Product)' != '' ">
-		<AssemblyName Condition=" '$(AssemblyName)' == '' ">$(Product)</AssemblyName>
-		<PackageId Condition=" '$(PackageId)' == '' ">$(Product)</PackageId>
+		<AssemblyName Condition=" '$(AssemblyName)' == '' ">$(Product.Replace("-", "."))</AssemblyName>
+		<PackageId Condition=" '$(PackageId)' == '' ">$(Product.Replace("-", "."))</PackageId>
 		<Title Condition=" '$(Title)' == '' ">$(Product)</Title>
 		<PackageProjectUrl Condition=" '$(PackageProjectUrl)' == '' ">https://github.com/PrincessRTFM/$(Product)</PackageProjectUrl>
 	</PropertyGroup>
@@ -53,8 +53,8 @@
 		<NullableContextOptions>enable</NullableContextOptions>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-		<LangVersion>11</LangVersion>
-		<AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+		<LangVersion>12</LangVersion>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
@@ -132,6 +132,7 @@
 				<DebugType>none</DebugType>
 				<Optimize>true</Optimize>
 				<CopyDebugSymbolFilesFromPackages>false</CopyDebugSymbolFilesFromPackages>
+				<DefineConstants>RELEASE;STRIPPED</DefineConstants>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
@@ -140,7 +141,7 @@
 				<DebugType>portable</DebugType>
 				<Optimize>true</Optimize>
 				<CopyDebugSymbolFilesFromPackages>false</CopyDebugSymbolFilesFromPackages>
-				<DefineConstants>TRACE</DefineConstants>
+				<DefineConstants>RELEASE;TRACE</DefineConstants>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
