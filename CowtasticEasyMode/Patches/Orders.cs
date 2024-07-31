@@ -14,9 +14,11 @@ namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
 internal class Orders {
 	private const BindingFlags AnyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-	[HotkeyTrigger("Instafill order", KeyCode.Space)]
-	[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "delegate conformation")]
+	[HotkeyTrigger("Instafill order", KeyCode.Space, KeyCode.F)]
 	internal static void FillCupWithOrder(KeyCode trigger = KeyCode.None) {
+		if (trigger is KeyCode.F && !Config.AutoFillCup) // if you just turned autofill OFF, don't fill the cup
+			return;
+
 		OrderManager manager = OrderManager.instance;
 		if (manager is null) {
 			Log.Error($"Cannot autofill order, OrderManager instance is null");
