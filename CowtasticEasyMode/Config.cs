@@ -18,10 +18,10 @@ internal static class Config {
 	[Setting("happiness.preventGameLoss", true, KeyCode.P, KeyCode.H)]
 	public static bool PreventGameLoss { get; set; }
 
-	[Setting("money.earnDouble", true, KeyCode.E, KeyCode.I, KeyCode.M)]
+	[Setting("money.earnDouble", true, KeyCode.D, KeyCode.I, KeyCode.M)]
 	public static bool IncomeTimes2 { get; set; }
 
-	[Setting("money.earnQuintuple", false, KeyCode.D, KeyCode.I, KeyCode.M)]
+	[Setting("money.earnQuintuple", false, KeyCode.E, KeyCode.I, KeyCode.M)]
 	public static bool IncomeTimes5 { get; set; }
 
 	[Setting("money.spendingHalf", true, KeyCode.R, KeyCode.O, KeyCode.M)]
