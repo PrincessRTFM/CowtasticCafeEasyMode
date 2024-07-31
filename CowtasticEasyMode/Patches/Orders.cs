@@ -1,5 +1,3 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
-
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -10,13 +8,15 @@ using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
 
+namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
+
 [HarmonyPatch(typeof(OrderManager))]
 internal class Orders {
-	private const BindingFlags anyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+	private const BindingFlags AnyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
 	[HotkeyTrigger("Instafill order", KeyCode.Space)]
 	[SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "delegate conformation")]
-	internal static void fillCupWithOrder(KeyCode trigger = KeyCode.None) {
+	internal static void FillCupWithOrder(KeyCode trigger = KeyCode.None) {
 		OrderManager manager = OrderManager.instance;
 		if (manager is null) {
 			Log.Error($"Cannot autofill order, OrderManager instance is null");
@@ -60,7 +60,7 @@ internal class Orders {
 				default:
 					try {
 						Log.Warn($"Unrecognised topping {want}, attempting automatic reflection");
-						FieldInfo field = cup.GetType().GetField(want.ToString(), anyInstance);
+						FieldInfo field = cup.GetType().GetField(want.ToString(), AnyInstance);
 						field?.SetValue(cup, true);
 					}
 					catch {
@@ -89,11 +89,12 @@ internal class Orders {
 		if (!Config.AutoFillCup)
 			return;
 
-		fillCupWithOrder();
+		FillCupWithOrder();
 	}
 
 	[HarmonyPostfix]
 	[HarmonyPatch(nameof(OrderManager.CheckIfOrderIsValid))]
+	[SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "parameter names must conform to harmony specification")]
 	public static void GuaranteeValidOrder(ref float __result) {
 		if (!Config.IgnoreCustomerOrder)
 			return;

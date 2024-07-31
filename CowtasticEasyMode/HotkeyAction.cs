@@ -1,11 +1,11 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode;
-
 using System;
 using System.Reflection;
 
 using MonoMod.Utils;
 
 using UnityEngine;
+
+namespace PrincessRTFM.CowtasticCafeEasyMode;
 
 internal delegate void KeybindHandler(KeyCode trigger);
 
@@ -49,7 +49,7 @@ internal class HotkeyAction {
 		HotkeyTriggerAttribute attr = method.GetCustomAttribute<HotkeyTriggerAttribute>() ?? throw new ArgumentException("provided method does not have a HotkeyTrigger attribute", nameof(method));
 		this.Label = attr.Label;
 		this.Keybinds = attr.Keybinds;
-		this.Method = method.CreateDelegate<KeybindHandler>();
+		this.Method = function;
 		this.Descriptor = Core.DescribeMethod(method, false);
 	}
 

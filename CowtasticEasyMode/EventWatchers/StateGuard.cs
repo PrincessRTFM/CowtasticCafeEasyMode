@@ -1,9 +1,9 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
-
 using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
 
 internal class StateGuard: MonoBehaviour {
 	private static bool seenMainMenu = false;

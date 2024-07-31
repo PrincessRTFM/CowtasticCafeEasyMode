@@ -1,27 +1,23 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using PrincessRTFM.CowtasticCafeEasyMode;
-
 using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
 
+namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
+
 public class HotkeyManager: MonoBehaviour {
-	internal static readonly Dictionary<KeyCode, HashSet<HotkeyAction>> triggerKeys = new();
-	internal static string[] triggerInstructionLines { get; private set; } = new string[0];
+	internal static readonly Dictionary<KeyCode, HashSet<HotkeyAction>> triggerKeys = [];
+	internal static string[] TriggerInstructionLines { get; private set; } = [];
 
 	public static HotkeyManager Instance { get; private set; } = null!;
 	public void Awake() {
-		MethodInfo handler = typeof(KeybindHandler).GetMethod("Invoke");
-		Type tReturn = handler.ReturnType;
-		ParameterInfo[] tArgs = handler.GetParameters();
-		MethodInfo[] triggers = Assembly
-			.GetExecutingAssembly()
+		MethodInfo[] triggers = this
+			.GetType()
+			.Assembly
 			.GetTypes()
 			.SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic))
 			.Where(HotkeyAction.IsValid)
@@ -32,13 +28,13 @@ public class HotkeyManager: MonoBehaviour {
 			KeyCode[] keys = attr.Keybinds;
 			foreach (KeyCode key in keys) {
 				if (!triggerKeys.ContainsKey(key))
-					triggerKeys.Add(key, new());
+					triggerKeys.Add(key, []);
 				HotkeyAction action = new(method);
 				triggerKeys[key].Add(action);
 				Log.Debug($"- {action}: {action.Descriptor}()");
 			}
 		}
-		triggerInstructionLines = triggerKeys
+		TriggerInstructionLines = triggerKeys
 			.SelectMany(pair => pair.Value
 				.OrderBy(action => action.Label)
 				.Select(action => action.ToString())

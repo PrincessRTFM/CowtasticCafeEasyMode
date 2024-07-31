@@ -1,5 +1,3 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
-
 using System.Diagnostics.CodeAnalysis;
 
 using HarmonyLib;
@@ -7,6 +5,8 @@ using HarmonyLib;
 using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
+
+namespace PrincessRTFM.CowtasticCafeEasyMode.Patches;
 
 [HarmonyPatch]
 [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "delegate conformation")]

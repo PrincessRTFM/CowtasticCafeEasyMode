@@ -1,5 +1,3 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode;
-
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -14,6 +12,8 @@ using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
 
+namespace PrincessRTFM.CowtasticCafeEasyMode;
+
 public static class Core {
 	public static string Module { get; } = Assembly.GetExecutingAssembly().GetName().Name;
 	public static string Version { get; } = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
@@ -21,10 +21,10 @@ public static class Core {
 	public static string LogPath { get; } = Path.Combine(Environment.CurrentDirectory, $"{Module}.log");
 	public static string ConfigPath { get; } = Path.Combine(Environment.CurrentDirectory, $"{Module}.properties");
 
-	internal static Harmony? patcher { get; private set; } = null;
-	public static bool Initialised => patcher is not null;
+	internal static Harmony? Patcher { get; private set; } = null;
+	public static bool Initialised => Patcher is not null;
 
-	internal static GameObject dispatcher { get; private set; } = null!;
+	internal static GameObject Dispatcher { get; private set; } = null!;
 
 	private static bool initialising = false;
 
@@ -36,8 +36,8 @@ public static class Core {
 			.Where(p => (p.Attributes & ParameterAttributes.Retval) == ParameterAttributes.Retval)
 			.FirstOrDefault()
 			?.ParameterType
-			?.Name
-			?? (method as MethodInfo)?.ReturnType?.Name
+			.Name
+			?? (method as MethodInfo)?.ReturnType.Name
 			?? "<unknown>";
 		string[] args = allParams
 			.Where(p => (p.Attributes & ParameterAttributes.Retval) == 0)
@@ -78,14 +78,14 @@ public static class Core {
 	private static void hookUnityEvents() {
 		Log.EnterMethod();
 		Log.Debug("Initialising unity GameObject for event handlers");
-		dispatcher = new(Module) {
+		Dispatcher = new(Module) {
 			hideFlags = HideFlags.HideAndDontSave,
 		};
-		UnityEngine.Object.DontDestroyOnLoad(dispatcher);
+		UnityEngine.Object.DontDestroyOnLoad(Dispatcher);
 		Log.Info("Initialising unity event handlers");
 		foreach (Type unityHandler in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsAssignableTo(typeof(MonoBehaviour)))) {
 			Log.Debug($"Registering {unityHandler.Name}");
-			dispatcher.AddComponent(unityHandler);
+			Dispatcher.AddComponent(unityHandler);
 		}
 		Log.ExitMethod();
 	}
@@ -97,7 +97,7 @@ public static class Core {
 			Harmony harmony = new(typeof(Core).FullName);
 			Log.Info("Generating and applying patches");
 			harmony.PatchAll(Assembly.GetExecutingAssembly());
-			patcher = harmony;
+			Patcher = harmony;
 			MethodBase[] patches = harmony.GetPatchedMethods().ToArray();
 			int count = patches.Count();
 			Log.Debug($"Applied {count} patch{(count == 1 ? "" : "es")}");

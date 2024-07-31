@@ -3,7 +3,6 @@
 #define TRACEDEBUG
 #endif
 #endif
-namespace PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using System;
 using System.Collections.Generic;
@@ -11,6 +10,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
+namespace PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 internal static class Log {
 	private static readonly string hiddenNamespace = typeof(Log).Namespace.ToLowerInvariant();

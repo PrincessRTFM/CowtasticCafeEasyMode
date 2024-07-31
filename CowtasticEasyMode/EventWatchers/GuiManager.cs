@@ -1,10 +1,8 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
-
 using System.Linq;
 
-using PrincessRTFM.CowtasticCafeEasyMode;
-
 using UnityEngine;
+
+namespace PrincessRTFM.CowtasticCafeEasyMode.EventWatchers;
 
 internal class GuiManager: MonoBehaviour {
 	public const int
@@ -28,7 +26,7 @@ internal class GuiManager: MonoBehaviour {
 			string state = ((bool)pair.Key.GetValue(null, null)).Label();
 			return $"{key} {name}: {state}";
 		})
-		.Concat(HotkeyManager.triggerInstructionLines)
+		.Concat(HotkeyManager.TriggerInstructionLines)
 	));
 	private static Vector2 headerSize = Vector2.zero;
 	private static Vector2 bodySize = Vector2.zero;

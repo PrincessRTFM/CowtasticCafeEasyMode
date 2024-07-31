@@ -1,5 +1,3 @@
-namespace PrincessRTFM.CowtasticCafeEasyMode;
-
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +8,8 @@ using Kajabity.Tools.Java;
 using PrincessRTFM.CowtasticCafeEasyMode.Logging;
 
 using UnityEngine;
+
+namespace PrincessRTFM.CowtasticCafeEasyMode;
 
 internal static class Config {
 	[Setting("happiness.lockAtCap", false, KeyCode.L, KeyCode.H)]
@@ -40,8 +40,8 @@ internal static class Config {
 	public static bool IgnoreCustomerOrder { get; set; }
 
 	#region Implementation details
-	private static readonly JavaProperties conf = new();
-	internal static readonly Dictionary<PropertyInfo, SettingAttribute> settings = new();
+	private static readonly JavaProperties conf = [];
+	internal static readonly Dictionary<PropertyInfo, SettingAttribute> settings = [];
 	static Config() {
 		PropertyInfo[] properties = typeof(Config)
 			.GetProperties()
