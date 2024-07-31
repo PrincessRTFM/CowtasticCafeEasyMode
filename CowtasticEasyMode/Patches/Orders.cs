@@ -63,7 +63,7 @@ internal class Orders {
 					try {
 						Log.Warn($"Unrecognised topping {want}, attempting automatic reflection");
 						FieldInfo field = cup.GetType().GetField(want.ToString(), AnyInstance);
-						field?.SetValue(cup, true);
+						field.SetValue(cup, true); // may throw if the field isn't found
 					}
 					catch {
 						Log.Error($"Automatic reflection failed, {cup.GetType().Name}.{want} is not a valid boolean instance field");
