@@ -49,6 +49,7 @@ internal class Money {
 	[HarmonyPrefix]
 	[HarmonyPatch(typeof(BaseGameMode), nameof(BaseGameMode.AddMoney))]
 	public static void IncreasedEarnings(ref float amount) {
+		amount = Mathf.Abs(amount);
 		if (Config.IncomeTimes2)
 			amount *= 2;
 		if (Config.IncomeTimes5)
@@ -58,6 +59,7 @@ internal class Money {
 	[HarmonyPrefix]
 	[HarmonyPatch(typeof(BaseGameMode), nameof(BaseGameMode.SubMoney))]
 	public static void ReducedSpendings(ref float amount) {
+		amount = Mathf.Abs(amount);
 		if (Config.HalveAllCosts)
 			amount /= 2;
 		if (Config.NoSpending)
