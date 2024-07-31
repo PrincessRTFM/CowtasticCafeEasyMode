@@ -44,7 +44,7 @@ internal static class Config {
 	internal static readonly Dictionary<PropertyInfo, SettingAttribute> settings = [];
 	static Config() {
 		PropertyInfo[] properties = typeof(Config)
-			.GetProperties()
+			.GetProperties(BindingFlags.Public | BindingFlags.Static)
 			.Where(p => p.PropertyType == typeof(bool) && p.GetCustomAttribute<SettingAttribute>() is not null)
 			.ToArray();
 		foreach (PropertyInfo prop in properties) {
