@@ -31,10 +31,8 @@ internal static class Log {
 		DateTime now = DateTime.Now;
 		string time = $"{now.Hour:D2}:{now.Minute:D2}:{now.Second:D2}";
 		string content = $"[{time}|{level.Abbreviate()}] {message}";
-		if (output is null) {
-			Console.WriteLine(content);
-		}
-		else {
+		Console.WriteLine(content);
+		if (output is not null) {
 			output.WriteLine(content);
 			output.Flush();
 		}
