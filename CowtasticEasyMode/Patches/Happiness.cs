@@ -41,4 +41,8 @@ internal static class Happiness {
 				: amount;
 		}
 	}
+
+	[HarmonyPrefix]
+	[HarmonyPatch(typeof(BaseGameMode), nameof(BaseGameMode.SubHappyness))]
+	public static bool BlockFakeHappinessLoss(float amount) => amount > 0;
 }
