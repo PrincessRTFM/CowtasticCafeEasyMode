@@ -59,6 +59,7 @@ public static class Core {
 		}
 		catch (Exception e) {
 			Log.Fatal(e.ToString());
+			return;
 		}
 		new Thread(installHarmonyPatches) {
 			Name = $"{Module} - harmony patcher",
