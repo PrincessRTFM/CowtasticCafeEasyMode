@@ -104,10 +104,12 @@ public static class Core {
 			Log.Debug($"Applied {count} patch{(count == 1 ? "" : "es")}");
 			foreach (MethodBase patched in patches)
 				Log.Debug($"- {DescribeMethod(patched)}");
-			Log.ExitMethod();
 		}
 		catch (Exception e) {
 			Log.Fatal(e.ToString());
+		}
+		finally {
+			Log.ExitMethod();
 		}
 	}
 
