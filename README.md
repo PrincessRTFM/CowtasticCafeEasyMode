@@ -23,7 +23,7 @@ All features are controlled via hotkeys, with the keybind displayed in the lower
 - \[`R`, `O`, `M`\] reduce all spent money by half (you still need to _have_ the full amount, but only half the cost is spent)
 - \[`N`, `O`, `M`\] disable spending entirely (you still need to _have_ the full amount, but no money is spent)
 - \[`G`\] guarantee perfect order ratings (whatever you give the customer will be rated as perfect)
-- \[`F`\] autofill cup when customer orders (cup will start with the exact order, ONLY applies when an order is STARTED)
+- \[`F`\] autofill cup when customer orders (cup will start with the exact order, any existing order will be auto-filled)
 - \[`/`, `?`\] status overlay in the lower right corner to display what features are enabled and what hotkeys you can use to toggle them
 
 #### IMPORTANT NOTE
@@ -33,13 +33,12 @@ The above keybinds toggle _all_ of the settings they connect to! This means that
 ### Immediate actions
 
 - \[`[space]`\] immediately fill the current cup with the desired order
-- \[`[PageUp]`\] add $10
-- \[`[PageDown]`\] remove $10 (will not go negative)
+- \[`[PageUp]`, `[Home]`, `[Insert]`\] add $10, $100, or $1000 (respectively)
+- \[`[PageDown]`, `[End]`, `[Delete]`\] remove $10, $100, or $1000 (respectively) - money will never go negative
 
 ## Tips
 
 - the "lock happiness at cap" feature actually sets happiness to 100% and just repeats that every frame, so you can turn it on and then back off to just get an instant boost to full and then allow it to decay as normal
-- autofill cup only works when the order is started ~~but perfect ratings has no such limit, so if you suddenly get an order too complicated to fill in time, you can just turn perfect ratings on and serve anything - even nothing but 1% coffee!~~ but you can now use the space bar to complete your _current_ order without affecting the next one!
 - the status overlay is unrelated to the rest of the features and their hotkeys; if you want to leave it hidden, you can, and everything else will continue to work - INCLUDING hotkeys toggling other features
 - since all features can be disabled, you don't actually need to completely disable CCEM if you want to play a vanilla run
 
